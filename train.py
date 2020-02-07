@@ -356,7 +356,8 @@ def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], retur
 
         print("Extracted features for gallery set, obtained {}-by-{} matrix".format(gf.size(0), gf.size(1)))
 
-        if os.environ.get('save_feat'):
+        # if os.environ.get('save_feat'):
+        if True:
             import scipy.io as io
             io.savemat(os.environ.get('save_feat'), {'q': qf.data.numpy(), 'g': gf.data.numpy(), 'qt': q_pids, 'gt': g_pids})
             # return
@@ -369,7 +370,8 @@ def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], retur
     distmat.addmm_(1, -2, qf, gf.t())
     distmat = distmat.numpy()
 
-    if os.environ.get('distmat'):
+    # if os.environ.get('distmat'):
+    if True:
         import scipy.io as io
         io.savemat(os.environ.get('distmat'), {'distmat': distmat, 'qp': q_paths, 'gp': g_paths})
 

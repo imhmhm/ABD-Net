@@ -7,18 +7,18 @@ from .market1501_d import Market1501_D
 from .cuhk03 import CUHK03
 from .dukemtmcreid import DukeMTMCreID
 from .dukemtmcreid_d import DukeMTMCreID_D
-from .msmt17 import MSMT17
-from .viper import VIPeR
-from .grid import GRID
-from .cuhk01 import CUHK01
-from .prid450s import PRID450S
-from .ilids import iLIDS
-from .sensereid import SenseReID
-
+# from .msmt17 import MSMT17
+# from .viper import VIPeR
+# from .grid import GRID
+# from .cuhk01 import CUHK01
+# from .prid450s import PRID450S
+# from .ilids import iLIDS
+# from .sensereid import SenseReID
+#
 from .mars import Mars
-from .ilidsvid import iLIDSVID
-from .prid2011 import PRID2011
-from .dukemtmcvidreid import DukeMTMCVidReID
+# from .ilidsvid import iLIDSVID
+# from .prid2011 import PRID2011
+# from .dukemtmcvidreid import DukeMTMCVidReID
 
 __imgreid_factory = {
     'market1501': Market1501,
@@ -26,21 +26,21 @@ __imgreid_factory = {
     'cuhk03': CUHK03,
     'dukemtmcreid': DukeMTMCreID,
     'dukemtmcreid_d': DukeMTMCreID_D,
-    'msmt17': MSMT17,
-    'viper': VIPeR,
-    'grid': GRID,
-    'cuhk01': CUHK01,
-    'prid450s': PRID450S,
-    'ilids': iLIDS,
-    'sensereid': SenseReID,
+    # 'msmt17': MSMT17,
+    # 'viper': VIPeR,
+    # 'grid': GRID,
+    # 'cuhk01': CUHK01,
+    # 'prid450s': PRID450S,
+    # 'ilids': iLIDS,
+    # 'sensereid': SenseReID,
 }
 
 
 __vidreid_factory = {
     'mars': Mars,
-    'ilidsvid': iLIDSVID,
-    'prid2011': PRID2011,
-    'dukemtmcvidreid': DukeMTMCVidReID,
+    # 'ilidsvid': iLIDSVID,
+    # 'prid2011': PRID2011,
+    # 'dukemtmcvidreid': DukeMTMCVidReID,
 }
 
 

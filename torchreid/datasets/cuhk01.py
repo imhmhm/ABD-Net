@@ -13,7 +13,8 @@ import os.path as osp
 from scipy.io import loadmat
 import numpy as np
 import h5py
-from scipy.misc import imsave
+# from scipy.misc import imsave
+from imageio import imsave
 
 from torchreid.utils.iotools import mkdir_if_missing, write_json, read_json
 from .bases import BaseImageDataset
@@ -27,7 +28,7 @@ class CUHK01(BaseImageDataset):
     Li et al. Human Reidentification with Transferred Metric Learning. ACCV 2012.
 
     URL: http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html
-    
+
     Dataset statistics:
     # identities: 971
     # images: 3884

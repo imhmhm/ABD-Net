@@ -13,7 +13,8 @@ import os.path as osp
 from scipy.io import loadmat
 import numpy as np
 import h5py
-from scipy.misc import imsave
+# from scipy.misc import imsave
+from imageio import imsave
 
 from .bases import BaseVideoDataset
 
@@ -26,7 +27,7 @@ class Mars(BaseVideoDataset):
     Zheng et al. MARS: A Video Benchmark for Large-Scale Person Re-identification. ECCV 2016.
 
     URL: http://www.liangzheng.com.cn/Project/project_mars.html
-    
+
     Dataset statistics:
     # identities: 1261
     # tracklets: 8298 (train) + 1980 (query) + 9330 (gallery)

@@ -13,7 +13,8 @@ import os.path as osp
 from scipy.io import loadmat
 import numpy as np
 import h5py
-from scipy.misc import imsave
+# from scipy.misc import imsave
+from imageio import imsave
 
 from torchreid.utils.iotools import mkdir_if_missing, write_json, read_json
 from .bases import BaseVideoDataset
@@ -28,7 +29,7 @@ class DukeMTMCVidReID(BaseVideoDataset):
     Re-Identification by Stepwise Learning. CVPR 2018.
 
     URL: https://github.com/Yu-Wu/DukeMTMC-VideoReID
-    
+
     Dataset statistics:
     # identities: 702 (train) + 702 (test)
     # tracklets: 2196 (train) + 2636 (test)
