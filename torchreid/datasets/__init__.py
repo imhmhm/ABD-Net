@@ -7,7 +7,7 @@ from .market1501_d import Market1501_D
 from .cuhk03 import CUHK03
 from .dukemtmcreid import DukeMTMCreID
 from .dukemtmcreid_d import DukeMTMCreID_D
-# from .msmt17 import MSMT17
+from .msmt17 import MSMT17
 # from .viper import VIPeR
 # from .grid import GRID
 # from .cuhk01 import CUHK01
@@ -26,7 +26,7 @@ __imgreid_factory = {
     'cuhk03': CUHK03,
     'dukemtmcreid': DukeMTMCreID,
     'dukemtmcreid_d': DukeMTMCreID_D,
-    # 'msmt17': MSMT17,
+    'msmt17': MSMT17,
     # 'viper': VIPeR,
     # 'grid': GRID,
     # 'cuhk01': CUHK01,

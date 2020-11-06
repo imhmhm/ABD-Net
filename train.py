@@ -121,7 +121,15 @@ def main():
             print("Evaluating {} ...".format(name))
             queryloader = testloader_dict[name]['query'], testloader_dict[name]['query_flip']
             galleryloader = testloader_dict[name]['gallery'], testloader_dict[name]['gallery_flip']
-            distmat = test(model, queryloader, galleryloader, use_gpu, return_distmat=True)
+            distmat = test(model, queryloader, galleryloader, use_gpu, return_distmat=True, name=name)
+            from scipy import io as s_io
+            fname = 'ABD-Net-' + name + '.mat'
+            root_A = './distmat'
+            if not os.path.exists(root_A):
+                os.makedirs(root_A)
+            fname = os.path.join(root_A, fname)
+            s_io.savemat(fname, {'distmat': distmat})
+
 
             if args.visualize_ranks:
                 visualize_ranked_results(
@@ -181,7 +189,7 @@ def main():
                 print("Evaluating {} ...".format(name))
                 queryloader = testloader_dict[name]['query'], testloader_dict[name]['query_flip']
                 galleryloader = testloader_dict[name]['gallery'], testloader_dict[name]['gallery_flip']
-                rank1 = test(model, queryloader, galleryloader, use_gpu)
+                rank1 = test(model, queryloader, galleryloader, use_gpu, name=name)
                 ranklogger.write(name, epoch + 1, rank1)
 
             if use_gpu:
@@ -272,7 +280,7 @@ def train(epoch, model, criterion, regularizer, optimizer, trainloader, use_gpu,
         end = time.time()
 
 
-def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], return_distmat=False):
+def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], return_distmat=False, name=None):
 
     flip_eval = args.flip_eval
 
@@ -359,7 +367,7 @@ def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], retur
         if True:
             import scipy.io as io
             # io.savemat(os.environ.get('save_feat'), {'q': qf.data.numpy(), 'g': gf.data.numpy(), 'qt': q_pids, 'gt': g_pids})
-            io.savemat('abd_feat.mat', {'q': qf.data.numpy(), 'g': gf.data.numpy(), 'qt': q_pids, 'gt': g_pids})
+            io.savemat('save/abd_feat_'+name+'.mat', {'q': qf.data.numpy(), 'g': gf.data.numpy(), 'qt': q_pids, 'gt': g_pids})
             # return
 
     print("==> BatchTime(s)/BatchSize(img): {:.3f}/{}".format(batch_time.avg, args.test_batch_size))
@@ -367,14 +375,15 @@ def test(model, queryloader, galleryloader, use_gpu, ranks=[1, 5, 10, 20], retur
     m, n = qf.size(0), gf.size(0)
     distmat = torch.pow(qf, 2).sum(dim=1, keepdim=True).expand(m, n) + \
         torch.pow(gf, 2).sum(dim=1, keepdim=True).expand(n, m).t()
-    distmat.addmm_(1, -2, qf, gf.t())
+    # distmat.addmm_(1, -2, qf, gf.t())
+    distmat.addmm_(qf, gf.t(), beta=1, alpha=-2)
     distmat = distmat.numpy()
 
     # if os.environ.get('distmat'):
     if True:
         import scipy.io as io
         # io.savemat(os.environ.get('distmat'), {'distmat': distmat, 'qp': q_paths, 'gp': g_paths})
-        io.savemat('abd_distmat.mat', {'distmat': distmat, 'qp': q_paths, 'gp': g_paths})
+        io.savemat('save/abd_distmat_'+name+'.mat', {'distmat': distmat, 'qp': q_paths, 'gp': g_paths})
 
     print("Computing CMC and mAP")
     cmc, mAP = evaluate(distmat, q_pids, g_pids, q_camids, g_camids, use_metric_cuhk03=args.use_metric_cuhk03)
