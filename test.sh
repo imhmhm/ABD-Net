@@ -1,4 +1,4 @@
-python train.py -s msmt17 -t msmt17 \
+python train.py -s market1501 -t market1501 \
     --flip-eval --eval-freq 1 \
     --label-smooth \
     --criterion htri \
@@ -20,7 +20,7 @@ python train.py -s msmt17 -t msmt17 \
     --shallow-cam \
     --use-ow \
     --evaluate \
-    --load-weights msmt17_final_best.pth.tar \
+    --load-weights market_checkpoint_best.pth.tar \
     --test-batch-size 64 \
     --visualize-ranks \
 
